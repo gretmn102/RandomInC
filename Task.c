@@ -106,19 +106,21 @@ int main(void)
 	const double HIST_MAX = 1.0;
 	const int HIST_LINES = 5;
 	const int HIST_LENGTH = 16;
+
 	int size = 10;
 	double *numbers = NULL;
 	int *hist = NULL;
+
 	setlocale(LC_CTYPE, "Russian");
 
 	// TODO: 0. Взгляните на случайные числа. Напечатайте несколько в цикле.
 	// При желании можно рандомизировать ГПСЧ текущим числом секунд
-	// srand((unsigned) time(0));
+	srand((unsigned) time(NULL));
 
 	//...
 
 	// Подготовьтесь к эксперименту
-	printf("\n Введите количество чисел: ");
+	wprintf(L"\nВведите количество чисел: ");
 	scanf("%i", &size);
 
 	// Выделите память
@@ -126,7 +128,7 @@ int main(void)
 	hist = malloc(HIST_LINES * sizeof(int));
 
 	// Заполните массивы
-	printf("\n Равномерная СВ(первые % iчисел): \n", PRINT_MAX);
+	wprintf(L"\nРавномерная СВ(первые %i чисел): \n", PRINT_MAX);
 	FillRandom(numbers, size, RANDOM_MIN, RANDOM_MAX);
 	Print(numbers, size < PRINT_MAX ? size : PRINT_MAX);
 
