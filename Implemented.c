@@ -165,6 +165,40 @@ void DrawHistogram(int counters[], int numCounters, int width)
     }
 }
 
+/**
+ * Печатает вертикально гистограмму значений элементов массива.
+ *
+ * @param counters массив интервалов,содержащий количество элементов,
+ * попавших в соответствующий подынтервал
+ * @param numCounters количество подынтервалов подсчёта
+ * @param width полная высота поля вывода гистограммы,в знакоместах
+ */
+void DrawHistogramY(int counters[], int numCounters, int height)
+{
+    int max = 0;
+    for (int i = 0; i < numCounters; i++)
+    {
+        max = counters[i] > max ? counters[i] : max;
+    }
+
+    for (int row = height - 1; row >= 0; row--)
+    {
+        for (int counterIdx = 0; counterIdx < numCounters; counterIdx++)
+        {
+            int count = counters[counterIdx] * height / max;
+            printf("%c ", count - row > 0 ? HIST_CHAR_BAR : HIST_CHAR_SPACE);
+        }
+        printf("\n");
+    }
+
+    for (int i = 0; i < numCounters; i++)
+    {
+        printf("%d ", i);
+    }
+    printf("\n");
+
+}
+
 //////////////////////////////////////////////////////////////////////////////
 
 int main(void)
@@ -201,7 +235,8 @@ int main(void)
 	// Постройте гистограмму равномерной случайной величины
 	BuildHistogram(numbers, size, HIST_MIN, HIST_MAX, hist, HIST_LINES);
 	PrintHistogram(hist, HIST_LINES);
-	DrawHistogram(hist, HIST_LINES, HIST_LENGTH);
+	// DrawHistogram(hist, HIST_LINES, HIST_LENGTH);
+	DrawHistogramY(hist, HIST_LINES, HIST_LENGTH);
 
 	// Освободите память
 	free(hist);
